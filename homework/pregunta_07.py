@@ -5,7 +5,7 @@ solo puede utilizar las funciones y librerias basicas de python. No puede
 utilizar pandas, numpy o scipy.
 """
 
-
+import os
 def pregunta_07():
     """
     Retorne una lista de tuplas que asocien las columnas 0 y 1. Cada tupla
@@ -25,3 +25,24 @@ def pregunta_07():
      (9, ['A', 'B', 'E', 'A', 'A', 'C'])]
 
     """
+    asociaciones = {}
+
+    ruta = os.path.join(os.path.dirname(__file__), "..", "files", "input", "data.csv")
+
+    with open(ruta, "r", encoding="utf-8") as f:
+        for line in f:
+            partes = line.strip().split("\t")
+            letra = partes[0]
+            valor = int(partes[1])
+
+            if valor not in asociaciones:
+                asociaciones[valor] = [letra]
+            else:
+                asociaciones[valor].append(letra)
+
+    resultado = sorted(asociaciones.items())
+
+    return resultado
+
+
+print(pregunta_07())

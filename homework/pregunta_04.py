@@ -5,7 +5,7 @@ solo puede utilizar las funciones y librerias basicas de python. No puede
 utilizar pandas, numpy o scipy.
 """
 
-
+import os
 def pregunta_04():
     """
     La columna 3 contiene una fecha en formato `YYYY-MM-DD`. Retorne la
@@ -26,3 +26,20 @@ def pregunta_04():
      ('12', 3)]
 
     """
+    conteo_meses = {}
+
+    ruta = os.path.join(os.path.dirname(__file__), "..", "files", "input", "data.csv")
+
+    with open(ruta, "r", encoding="utf-8") as f:
+        for line in f:
+            partes = line.strip().split("\t")
+            fecha = partes[2]
+            mes = fecha.split("-")[1]  # extrae el mes
+            conteo_meses[mes] = conteo_meses.get(mes, 0) + 1
+
+    resultado = sorted(conteo_meses.items())
+
+    return resultado
+
+
+print(pregunta_04())
